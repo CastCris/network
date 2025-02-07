@@ -67,6 +67,11 @@ int main(int argc,char**argv){
 	if((sock=socket(AF_INET,SOCK_STREAM,0))==-1)ERROR();
 	printf(ANSI_COLOR_GREEN"OK\n");
 
+	printf(ANSI_COLOR_YELLOW"setsockopt():");
+	int yes=1;
+	if(setsockopt(sock,SOL_SOCKET,SO_REUSEADDR | SO_REUSEPORT,&yes,sizeof(yes))==1)ERROR();
+	printf(ANSI_COLOR_GREEN "OK\n");
+
 	printf(ANSI_COLOR_YELLOW"bind(): ");
 	if(bind(sock,relay->ai_addr,relay->ai_addrlen)==-1)ERROR();
 	printf(ANSI_COLOR_GREEN"OK\n");
